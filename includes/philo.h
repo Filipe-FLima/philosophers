@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flima <flima@student.42.fr>                +#+  +:+       +#+        */
+/*   By: filipe <filipe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 15:36:06 by flima             #+#    #+#             */
-/*   Updated: 2025/01/25 17:56:45 by flima            ###   ########.fr       */
+/*   Updated: 2025/01/26 18:45:25 by filipe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,44 @@
 # include <unistd.h>
 # include <sys/time.h>
 # include <pthread.h>
+# include <stdbool.h>
 
-typedef struct s_core
+typedef pthread_mutex_t t_mutex;
+typedef struct s_forks t_forks;
+typedef struct s_philos t_philos;
+typedef struct s_simulation t_simulation;
+
+typedef	struct s_forks
 {
-	int	nbr_philos;
-	int	time_to_die;
-	int	time_to_eat;
-	int	time_to_sleep;
-	int	nbr_max_meals;
-}		t_core;
+	t_mutex	fork;
+	int		fork_id;	
+}			t_forks;
 
+struct s_simulation
+{
+	int			nbr_philos;
+	int			time_to_die;
+	int			time_to_eat;
+	int			time_to_sleep;
+	int			nbr_max_meals;
+	long		start_simulation;
+	bool		end_simulation;
+	t_forks		*forks;
+	t_philos	*philos;
+};
+
+ 
+struct s_philos
+{
+	int				philo_id;
+	t_forks			*left_fork;
+	t_forks			*right_fork;
+	int				nbr_meals;
+	bool			full;
+	long			last_meal_time;
+	pthread_t 		thread_id;
+	t_simulation	*simulation;
+};
 
 //utils functions
 int		ft_isdigit(int c);

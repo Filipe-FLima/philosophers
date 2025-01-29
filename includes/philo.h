@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filipe <filipe@student.42.fr>              +#+  +:+       +#+        */
+/*   By: flima <flima@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 15:36:06 by flima             #+#    #+#             */
-/*   Updated: 2025/01/26 18:45:25 by filipe           ###   ########.fr       */
+/*   Updated: 2025/01/29 22:01:29 by flima            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,9 @@ struct s_simulation
 	int			nbr_max_meals;
 	long		start_simulation;
 	bool		end_simulation;
+	bool		enjoy_it;
+	t_mutex		eating;
+	t_mutex		print_status;
 	t_forks		*forks;
 	t_philos	*philos;
 };
@@ -49,8 +52,8 @@ struct s_simulation
 struct s_philos
 {
 	int				philo_id;
-	t_forks			*left_fork;
-	t_forks			*right_fork;
+	t_forks			*first_fork;
+	t_forks			*second_fork;
 	int				nbr_meals;
 	bool			full;
 	long			last_meal_time;
@@ -59,11 +62,18 @@ struct s_philos
 };
 
 //utils functions
-int		ft_isdigit(int c);
-long	ft_atol(const char *nptr);
-void	ft_putendl_fd(char	*s, int fd);
-size_t	ft_strlen(const char *s);
+int			ft_isdigit(int c);
+long		ft_atol(const char *nptr);
+void		ft_putendl_fd(char	*s, int fd);
+size_t		ft_strlen(const char *s);
+long	int	get_current_time(void);
+void    	*safe_malloc(size_t bytes, t_simulation *data);
+void		print_status(t_simulation *data, t_philos *philo, char *status);
 //error functions
-void	validate_args(int argc, char **argv);
+void		validate_args(int argc, char **argv);
+//init function
+void		init_data(t_simulation *data);
+// free functions
+void		free_error_exit(t_simulation *data);
 
 #endif

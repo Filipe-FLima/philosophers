@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filipe <filipe@student.42.fr>              +#+  +:+       +#+        */
+/*   By: flima <flima@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 17:54:43 by flima             #+#    #+#             */
-/*   Updated: 2025/01/26 20:37:08 by filipe           ###   ########.fr       */
+/*   Updated: 2025/01/29 18:09:21 by flima            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,10 @@ static void parse_args(int argc, char **argv, t_simulation *data)
 	data->time_to_sleep = ft_atol(argv[4]) * 1e3;
 	if (data->time_to_die < 6e4 || data->time_to_die < 6e4 \
 		|| data->time_to_sleep < 6e4)
-		ft_putendl_fd("Erro\nUse timestamps greater tran 60ms");
+	{
+		ft_putendl_fd("Erro\nUse timestamps greater tran 60ms", 2);
+		exit(1);
+	}
 	if (argc == 6)
 		data->nbr_max_meals = ft_atol(argv[5]);
 	else 
@@ -34,8 +37,8 @@ int	main(int argc, char **argv)
 	
 	validate_args(argc, argv);
 	parse_args(argc, argv, &data);
-	data_init(&data); //to do
-	start_simulation(&data); //to do
+	init_data(&data);
+	start_dinner(&data); //to do
 	clean_simulation();//to do
 	return (0);
 }

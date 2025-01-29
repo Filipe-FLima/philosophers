@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft_utils.c                                      :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: flima <flima@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 16:35:09 by flima             #+#    #+#             */
-/*   Updated: 2025/01/25 17:48:40 by flima            ###   ########.fr       */
+/*   Updated: 2025/01/29 21:41:00 by flima            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,4 +64,14 @@ size_t	ft_strlen(const char *s)
 	while (s[i] != '\0')
 		i++;
 	return (i);
+}
+
+void	print_status(t_simulation *data, t_philos *philo, char *status)
+{
+	long int	time;
+
+	pthread_mutex_lock(&data->print_status);
+	time = get_current_time() - data->start_simulation;
+	printf("%ld %d %s", time, philo->philo_id, status);
+	pthread_mutex_unlock(&data->print_status);
 }

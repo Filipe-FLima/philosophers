@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flima <flima@student.42.fr>                +#+  +:+       +#+        */
+/*   By: filipe <filipe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 17:54:43 by flima             #+#    #+#             */
-/*   Updated: 2025/01/29 18:09:21 by flima            ###   ########.fr       */
+/*   Updated: 2025/02/01 22:18:19 by filipe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,6 @@ int	main(int argc, char **argv)
 	parse_args(argc, argv, &data);
 	init_data(&data);
 	start_dinner(&data); //to do
-	clean_simulation();//to do
+	// clean_simulation();//to do
 	return (0);
 }

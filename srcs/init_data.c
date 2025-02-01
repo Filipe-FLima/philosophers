@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_data.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flima <flima@student.42.fr>                +#+  +:+       +#+        */
+/*   By: filipe <filipe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 18:14:32 by flima             #+#    #+#             */
-/*   Updated: 2025/01/29 22:02:53 by flima            ###   ########.fr       */
+/*   Updated: 2025/02/01 23:03:21 by filipe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void    *safe_malloc(size_t bytes, t_simulation *data)
     if (ptr == NULL)
     {
         ft_putendl_fd("Error\nMemory allocation failed.", 2);
-        free_exit(data);// to do
+        // free_exit(data);// to do
     }
     return (ptr);
 }

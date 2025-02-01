@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flima <flima@student.42.fr>                +#+  +:+       +#+        */
+/*   By: filipe <filipe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 16:35:09 by flima             #+#    #+#             */
-/*   Updated: 2025/01/29 21:41:00 by flima            ###   ########.fr       */
+/*   Updated: 2025/02/01 23:21:37 by filipe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,6 @@ void	print_status(t_simulation *data, t_philos *philo, char *status)
 
 	pthread_mutex_lock(&data->print_status);
 	time = get_current_time() - data->start_simulation;
-	printf("%ld %d %s", time, philo->philo_id, status);
+	printf("%ld %d %s\n", time, philo->philo_id, status);
 	pthread_mutex_unlock(&data->print_status);
 }

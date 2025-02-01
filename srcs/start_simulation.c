@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   start_simulation.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flima <flima@student.42.fr>                +#+  +:+       +#+        */
+/*   By: filipe <filipe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 17:06:46 by flima             #+#    #+#             */
-/*   Updated: 2025/01/29 20:35:17 by flima            ###   ########.fr       */
+/*   Updated: 2025/02/01 23:15:02 by filipe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,20 +22,19 @@ void	start_dinner(t_simulation *data)
 	i = -1;
 	while (++i < data->nbr_philos)
 	{
-		if (pthread_create(&data->philos[i].philo_id, NULL, routine,
-			&data->philos[i]) != 0)
-			clean_all(data); //todo
+		pthread_create(&data->philos[i].thread_id, NULL, routine, &data->philos[i]);
+			// clean_all(data); //todo
 	}
 	if (pthread_create(&waiter, NULL, manager, &data) != 0)
-		clean_all(data);
+		// clean_all(data);
 	data->start_simulation = get_current_time();
 	data->enjoy_it = true;
 	i = -1;
 	if (pthread_join(waiter, NULL) != 0)
-		clean_all(data);
+		// clean_all(data);
 	while (++i < data->nbr_philos)
 	{
-		if (pthread_join(data->philos[i].philo_id, NULL) != 0)
-			clean_all(data);
+		pthread_join(data->philos[i].thread_id, NULL);
+			// clean_all(data);
 	}
 }

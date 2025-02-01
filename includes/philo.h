@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flima <flima@student.42.fr>                +#+  +:+       +#+        */
+/*   By: filipe <filipe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 15:36:06 by flima             #+#    #+#             */
-/*   Updated: 2025/01/29 22:01:29 by flima            ###   ########.fr       */
+/*   Updated: 2025/02/01 23:13:39 by filipe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,5 +75,9 @@ void		validate_args(int argc, char **argv);
 void		init_data(t_simulation *data);
 // free functions
 void		free_error_exit(t_simulation *data);
+// simulation
+void		start_dinner(t_simulation *data);
+void		*routine(void	*ph);
+void    	*manager(void *simulation);
 
 #endif

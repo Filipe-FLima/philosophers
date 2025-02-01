@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flima <flima@student.42.fr>                +#+  +:+       +#+        */
+/*   By: filipe <filipe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 21:05:34 by flima             #+#    #+#             */
-/*   Updated: 2025/01/29 22:11:38 by flima            ###   ########.fr       */
+/*   Updated: 2025/02/01 23:10:58 by filipe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,19 +34,19 @@ void	static	eating(t_philos *philo)
 
 void	static	eat(t_philos *philo)
 {
-	pthread_mutex_lock(philo->first_fork);
+	pthread_mutex_lock(&philo->first_fork->fork);
 	print_status(philo->simulation, philo, "has taken a fork");
-	pthread_mutex_lock(philo->second_fork);
+	pthread_mutex_lock(&philo->second_fork->fork);
 	print_status(philo->simulation, philo, "has taken a fork");
 	pthread_mutex_lock(&philo->simulation->eating);
 	philo->last_meal_time = get_current_time();
 	philo->nbr_meals++;
 	pthread_mutex_unlock(&philo->simulation->eating);
 	eating(philo);
-	pthread_mutex_unlock(philo->first_fork);
-	pthread_mutex_unlock(philo->second_fork);
+	pthread_mutex_unlock(&philo->first_fork->fork);
+	pthread_mutex_unlock(&philo->second_fork->fork);
 }
-void	routine(void	*ph)
+void	*routine(void	*ph)
 {
 	t_philos	*philo;
 
@@ -57,8 +57,12 @@ void	routine(void	*ph)
 	{
 		eat(philo);
 		if (philo->nbr_meals == philo->simulation->nbr_max_meals)
-			return ;
-		sleep(philo);
+		{
+			philo->full = true;
+			return (NULL);
+		}	
+		sleeping(philo);
 		thinking(philo);
 	}
+	return (NULL);
 }

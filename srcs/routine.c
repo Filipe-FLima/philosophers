@@ -6,7 +6,7 @@
 /*   By: filipe <filipe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 21:05:34 by flima             #+#    #+#             */
-/*   Updated: 2025/02/01 23:10:58 by filipe           ###   ########.fr       */
+/*   Updated: 2025/02/02 17:39:47 by filipe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,16 @@ static	void	sleeping(t_philos *philo)
 	usleep(philo->simulation->time_to_sleep);
 }
 
-void	static	eating(t_philos *philo)
+static	void	eating(t_philos *philo)
 {
 	if (!philo->simulation->end_simulation)
 		print_status(philo->simulation, philo, "is eating");
+	printf("test 3 eatin\n");
 	usleep(philo->simulation->time_to_eat);
+	printf("test 1 eatin\n");
 }
 
-void	static	eat(t_philos *philo)
+static	void	eat(t_philos *philo)
 {
 	pthread_mutex_lock(&philo->first_fork->fork);
 	print_status(philo->simulation, philo, "has taken a fork");
@@ -44,6 +46,7 @@ void	static	eat(t_philos *philo)
 	pthread_mutex_unlock(&philo->simulation->eating);
 	eating(philo);
 	pthread_mutex_unlock(&philo->first_fork->fork);
+	printf("test 1 eatin/n");
 	pthread_mutex_unlock(&philo->second_fork->fork);
 }
 void	*routine(void	*ph)

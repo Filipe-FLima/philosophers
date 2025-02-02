@@ -6,7 +6,7 @@
 /*   By: filipe <filipe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 17:06:46 by flima             #+#    #+#             */
-/*   Updated: 2025/02/01 23:15:02 by filipe           ###   ########.fr       */
+/*   Updated: 2025/02/02 17:46:05 by filipe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	start_dinner(t_simulation *data)
 		pthread_create(&data->philos[i].thread_id, NULL, routine, &data->philos[i]);
 			// clean_all(data); //todo
 	}
-	if (pthread_create(&waiter, NULL, manager, &data) != 0)
+	pthread_create(&waiter, NULL, manager, &data);
 		// clean_all(data);
 	data->start_simulation = get_current_time();
 	data->enjoy_it = true;

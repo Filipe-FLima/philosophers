@@ -6,7 +6,7 @@
 /*   By: filipe <filipe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 17:54:43 by flima             #+#    #+#             */
-/*   Updated: 2025/02/01 22:18:19 by filipe           ###   ########.fr       */
+/*   Updated: 2025/02/02 17:42:18 by filipe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,6 @@ int	main(int argc, char **argv)
 	init_data(&data);
 	start_dinner(&data); //to do
 	// clean_simulation();//to do
+	printf("main test\n");
 	return (0);
 }

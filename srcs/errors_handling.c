@@ -6,13 +6,13 @@
 /*   By: filipe <filipe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 17:13:33 by flima             #+#    #+#             */
-/*   Updated: 2025/01/26 18:47:47 by filipe           ###   ########.fr       */
+/*   Updated: 2025/02/02 16:39:56 by filipe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-static void	nbr_of_args(int argc, char **argv)
+static void	nbr_of_args(int argc)
 {
 	if (argc < 5 || argc > 6)
 	{
@@ -68,7 +68,7 @@ static void	check_sizeof_args(char **argv)
 
 void	validate_args(int argc, char **argv)
 {
-	nbr_of_args(argc, argv);
+	nbr_of_args(argc);
 	check_sizeof_args(argv);
 	check_content_args(argv);
 }

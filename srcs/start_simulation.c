@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   start_simulation.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filipe <filipe@student.42.fr>              +#+  +:+       +#+        */
+/*   By: flima <flima@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 17:06:46 by flima             #+#    #+#             */
-/*   Updated: 2025/02/02 17:46:05 by filipe           ###   ########.fr       */
+/*   Updated: 2025/02/04 22:30:01 by flima            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void	start_dinner(t_simulation *data)
 {
 	int	i;
 	pthread_t	waiter;
-
 	if (data->nbr_max_meals == 0)
 		return ;
 	i = -1;
@@ -28,9 +27,9 @@ void	start_dinner(t_simulation *data)
 	pthread_create(&waiter, NULL, manager, &data);
 		// clean_all(data);
 	data->start_simulation = get_current_time();
-	data->enjoy_it = true;
 	i = -1;
-	if (pthread_join(waiter, NULL) != 0)
+	data->enjoy_it = true;
+	pthread_join(waiter, NULL);
 		// clean_all(data);
 	while (++i < data->nbr_philos)
 	{

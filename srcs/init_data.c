@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_data.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filipe <filipe@student.42.fr>              +#+  +:+       +#+        */
+/*   By: flima <flima@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 18:14:32 by flima             #+#    #+#             */
-/*   Updated: 2025/02/02 17:49:32 by filipe           ###   ########.fr       */
+/*   Updated: 2025/02/04 22:19:27 by flima            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,5 +78,7 @@ void    init_data(t_simulation *data)
 	}
 	pthread_mutex_init(&data->print_status, NULL);//check for erros return?
 	pthread_mutex_init(&data->eating, NULL);
+	pthread_mutex_init(&data->is_full, NULL);
+	pthread_mutex_init(&data->is_dead, NULL);
 	init_philo(data);
 }

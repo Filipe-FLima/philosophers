@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filipe <filipe@student.42.fr>              +#+  +:+       +#+        */
+/*   By: flima <flima@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 15:36:06 by flima             #+#    #+#             */
-/*   Updated: 2025/02/02 17:58:21 by filipe           ###   ########.fr       */
+/*   Updated: 2025/02/04 22:19:12 by flima            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ struct s_simulation
 	bool		end_simulation;
 	bool		enjoy_it;
 	t_mutex		eating;
+	t_mutex		is_dead;
+	t_mutex		is_full;
 	t_mutex		print_status;
 	t_forks		*forks;
 	t_philos	*philos;
@@ -74,7 +76,7 @@ void		validate_args(int argc, char **argv);
 //init function
 void		init_data(t_simulation *data);
 // free functions
-void		free_error_exit(t_simulation *data);
+void    	free_error_exit(t_simulation *data);
 void    	clean_all(t_simulation *data);
 // simulation
 void		start_dinner(t_simulation *data);

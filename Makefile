@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: filipe <filipe@student.42.fr>              +#+  +:+       +#+         #
+#    By: flima <flima@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/02 16:01:48 by filipe            #+#    #+#              #
-#    Updated: 2025/02/02 16:49:20 by filipe           ###   ########.fr        #
+#    Updated: 2025/02/04 19:53:30 by flima            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ BLUE    = \033[34m
 
 SRCS= srcs/errors_handling.c srcs/init_data.c srcs/main.c \
 		srcs/manager.c srcs/routine.c srcs/start_simulation.c \
-			srcs/utils.c
+			srcs/utils.c srcs/free.c
 			
 OBJS= $(addprefix $(OBJ_DIR), $(SRCS:%.c=%.o))
 

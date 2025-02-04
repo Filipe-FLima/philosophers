@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filipe <filipe@student.42.fr>              +#+  +:+       +#+        */
+/*   By: flima <flima@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 21:05:34 by flima             #+#    #+#             */
-/*   Updated: 2025/02/02 17:39:47 by filipe           ###   ########.fr       */
+/*   Updated: 2025/02/04 22:45:31 by flima            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,7 @@ static	void	eating(t_philos *philo)
 {
 	if (!philo->simulation->end_simulation)
 		print_status(philo->simulation, philo, "is eating");
-	printf("test 3 eatin\n");
 	usleep(philo->simulation->time_to_eat);
-	printf("test 1 eatin\n");
 }
 
 static	void	eat(t_philos *philo)
@@ -46,22 +44,34 @@ static	void	eat(t_philos *philo)
 	pthread_mutex_unlock(&philo->simulation->eating);
 	eating(philo);
 	pthread_mutex_unlock(&philo->first_fork->fork);
-	printf("test 1 eatin/n");
 	pthread_mutex_unlock(&philo->second_fork->fork);
+}
+
+static bool	is_alive(t_philos *philo)
+{
+	pthread_mutex_lock(&philo->simulation->is_dead);
+	if (philo->simulation->end_simulation == true)
+	{
+		pthread_mutex_unlock(&philo->simulation->is_dead);
+		return (false);
+	}
+	pthread_mutex_unlock(&philo->simulation->is_dead);
+	return (true);
 }
 void	*routine(void	*ph)
 {
 	t_philos	*philo;
-
 	philo = (t_philos *)ph;
 	while (!philo->simulation->enjoy_it)
-		;
-	while (!philo->simulation->end_simulation)
+		usleep(10);
+	while (is_alive(philo))
 	{
 		eat(philo);
 		if (philo->nbr_meals == philo->simulation->nbr_max_meals)
 		{
+			pthread_mutex_lock(&philo->simulation->is_full);
 			philo->full = true;
+			pthread_mutex_unlock(&philo->simulation->is_full);
 			return (NULL);
 		}	
 		sleeping(philo);

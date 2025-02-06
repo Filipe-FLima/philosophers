@@ -6,7 +6,7 @@
 /*   By: flima <flima@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 21:34:24 by filipe            #+#    #+#             */
-/*   Updated: 2025/02/04 22:45:24 by flima            ###   ########.fr       */
+/*   Updated: 2025/02/06 21:54:11 by flima            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ static bool is_all_full(t_simulation *data)
 	pthread_mutex_lock(&data->is_full);
 	while (i < data->nbr_philos)
 	{
+
 		if (!data->philos[i].full)
 		{
 			pthread_mutex_unlock(&data->is_full);
@@ -35,13 +36,17 @@ static bool is_dead(t_philos *philo)
 {
 	long	int		current_time;
 	long	int		time_diff;
+	long	int		mls_die;
 
-	pthread_mutex_lock(&philo->simulation->eating);
+	// pthread_mutex_lock(&philo->simulation->eating);
 	current_time = get_current_time();
 	time_diff = current_time - philo->last_meal_time;
-	pthread_mutex_unlock(&philo->simulation->eating);
-	if (time_diff > philo->simulation->time_to_die)
+	mls_die = philo->simulation->time_to_die / 1e3;
+	// pthread_mutex_unlock(&philo->simulation->eating);
+	if (time_diff > mls_die)
+	{
 		return (true);
+	}
 	return (false);
 }
 
@@ -56,11 +61,10 @@ void    *manager(void *simulation)
     t_philos        *philo;
     t_simulation    *data;
     int             i;
-
+	
+	// usleep(1000);
     data = (t_simulation *)simulation;
     philo = data->philos;
-	while (data->enjoy_it)
-		usleep(10);
     while (!is_all_full(data))
     {
         i = 0;
@@ -70,10 +74,11 @@ void    *manager(void *simulation)
             {
                 end_simulation(data);
                 print_status(data, &philo[i], "is dead.");
+				return (NULL);
             }
             i++;
         }
-        usleep(100);
+        usleep(1000);
     }
     return (NULL);
 }

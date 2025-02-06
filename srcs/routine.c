@@ -6,7 +6,7 @@
 /*   By: flima <flima@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 21:05:34 by flima             #+#    #+#             */
-/*   Updated: 2025/02/04 22:45:31 by flima            ###   ########.fr       */
+/*   Updated: 2025/02/06 22:02:31 by flima            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,31 +32,35 @@ static	void	eating(t_philos *philo)
 	usleep(philo->simulation->time_to_eat);
 }
 
-static	void	eat(t_philos *philo)
+static	int	eat(t_philos *philo)
 {
 	pthread_mutex_lock(&philo->first_fork->fork);
 	print_status(philo->simulation, philo, "has taken a fork");
+	if (philo->simulation->nbr_philos == 1)
+	{
+		pthread_mutex_unlock(&philo->first_fork->fork);
+		return (1);
+	}
 	pthread_mutex_lock(&philo->second_fork->fork);
 	print_status(philo->simulation, philo, "has taken a fork");
-	pthread_mutex_lock(&philo->simulation->eating);
+	// pthread_mutex_lock(&philo->simulation->eating);
+	eating(philo);
 	philo->last_meal_time = get_current_time();
 	philo->nbr_meals++;
-	pthread_mutex_unlock(&philo->simulation->eating);
-	eating(philo);
+	// pthread_mutex_unlock(&philo->simulation->eating);
 	pthread_mutex_unlock(&philo->first_fork->fork);
 	pthread_mutex_unlock(&philo->second_fork->fork);
+	return (0);
 }
 
 static bool	is_alive(t_philos *philo)
 {
-	pthread_mutex_lock(&philo->simulation->is_dead);
-	if (philo->simulation->end_simulation == true)
-	{
-		pthread_mutex_unlock(&philo->simulation->is_dead);
-		return (false);
-	}
-	pthread_mutex_unlock(&philo->simulation->is_dead);
-	return (true);
+	bool	alive;
+	
+    pthread_mutex_lock(&philo->simulation->is_dead);
+    alive = !philo->simulation->end_simulation;
+    pthread_mutex_unlock(&philo->simulation->is_dead);
+    return alive;
 }
 void	*routine(void	*ph)
 {
@@ -66,7 +70,8 @@ void	*routine(void	*ph)
 		usleep(10);
 	while (is_alive(philo))
 	{
-		eat(philo);
+		if (eat(philo) == 1)
+			return (NULL);
 		if (philo->nbr_meals == philo->simulation->nbr_max_meals)
 		{
 			pthread_mutex_lock(&philo->simulation->is_full);

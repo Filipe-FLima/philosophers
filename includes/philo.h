@@ -6,7 +6,7 @@
 /*   By: flima <flima@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 15:36:06 by flima             #+#    #+#             */
-/*   Updated: 2025/02/04 22:19:12 by flima            ###   ########.fr       */
+/*   Updated: 2025/02/08 23:12:58 by flima            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,18 +21,25 @@
 # include <pthread.h>
 # include <stdbool.h>
 
-typedef pthread_mutex_t t_mutex;
-typedef struct s_forks t_forks;
-typedef struct s_philos t_philos;
-typedef struct s_simulation t_simulation;
+typedef pthread_mutex_t			t_mutex;
+typedef struct s_forks			t_forks;
+typedef struct s_philos			t_philos;
+typedef struct s_simulation		t_simulation;
 
-typedef	struct s_forks
+typedef enum e_status
+{
+	INIT,
+	CREATE,
+	JOIN,
+}			t_status;
+
+struct	s_forks
 {
 	t_mutex	fork;
 	int		fork_id;	
-}			t_forks;
+};
 
-struct s_simulation
+struct	s_simulation
 {
 	int			nbr_philos;
 	int			time_to_die;
@@ -50,8 +57,7 @@ struct s_simulation
 	t_philos	*philos;
 };
 
- 
-struct s_philos
+struct	s_philos
 {
 	int				philo_id;
 	t_forks			*first_fork;
@@ -59,7 +65,7 @@ struct s_philos
 	int				nbr_meals;
 	bool			full;
 	long			last_meal_time;
-	pthread_t 		thread_id;
+	pthread_t		thread_id;
 	t_simulation	*simulation;
 };
 
@@ -67,20 +73,20 @@ struct s_philos
 int			ft_isdigit(int c);
 long		ft_atol(const char *nptr);
 void		ft_putendl_fd(char	*s, int fd);
-size_t		ft_strlen(const char *s);
-long	int	get_current_time(void);
-void    	*safe_malloc(size_t bytes, t_simulation *data);
+long int	get_current_time(void);
 void		print_status(t_simulation *data, t_philos *philo, char *status);
+void		safe_mutex(t_simulation *data, t_mutex *mutex, t_status	status);
 //error functions
 void		validate_args(int argc, char **argv);
 //init function
 void		init_data(t_simulation *data);
 // free functions
-void    	free_error_exit(t_simulation *data);
-void    	clean_all(t_simulation *data);
+void		free_error_exit(t_simulation *data, int out);
+void		free_simulation(t_simulation *data, int out);
 // simulation
 void		start_dinner(t_simulation *data);
 void		*routine(void	*ph);
-void    	*manager(void *simulation);
+void		*manager(void *simulation);
+bool		is_alive(t_philos *philo);
 
 #endif

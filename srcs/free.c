@@ -3,38 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filipe <filipe@student.42.fr>              +#+  +:+       +#+        */
+/*   By: flima <flima@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/02 17:47:36 by filipe            #+#    #+#             */
-/*   Updated: 2025/02/02 17:58:07 by filipe           ###   ########.fr       */
+/*   Updated: 2025/02/08 23:26:49 by flima            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void    free_error_exit(t_simulation *data)
+void	free_error_exit(t_simulation *data, int out)
 {
-    t_forks 	*forks;
+	t_forks		*forks;
 	t_philos	*philos;
-    
-    forks = data->forks;
+
+	forks = data->forks;
 	philos = data->philos;
-    if (forks)
+	if (forks)
 		free(forks);
 	if (philos)
 		free(philos);
-	ft_putendl_fd("Error\nMemory allocation failed.", 2);
-	exit(1);
+	exit(out);
 }
 
-void    clean_all(t_simulation *data)
+void	free_simulation(t_simulation *data, int out)
 {
-    int i;
+	int	i;
 
-    i = -1;
-    while (++i < data->nbr_philos)
-        pthread_mutex_destroy(&data->forks[i].fork);
-    pthread_mutex_destroy(&data->print_status);
-    pthread_mutex_destroy(&data->eating);
-    free_error_exit(data);
+	i = -1;
+	while (++i < data->nbr_philos)
+		pthread_mutex_destroy(&data->forks[i].fork);
+	pthread_mutex_destroy(&data->print_status);
+	pthread_mutex_destroy(&data->eating);
+	pthread_mutex_destroy(&data->is_full);
+	pthread_mutex_destroy(&data->is_dead);
+	free_error_exit(data, out);
 }

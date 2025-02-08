@@ -6,13 +6,23 @@
 /*   By: flima <flima@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 17:54:43 by flima             #+#    #+#             */
-/*   Updated: 2025/02/06 21:49:55 by flima            ###   ########.fr       */
+/*   Updated: 2025/02/08 23:32:09 by flima            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-static void parse_args(int argc, char **argv, t_simulation *data)
+void	print_status(t_simulation *data, t_philos *philo, char *status)
+{
+	long int	time;
+
+	pthread_mutex_lock(&data->print_status);
+	time = get_current_time() - data->start_simulation;
+	printf("%ld %d %s\n", time, philo->philo_id, status);
+	pthread_mutex_unlock(&data->print_status);
+}
+
+static void	parse_args(int argc, char **argv, t_simulation *data)
 {
 	data->nbr_philos = ft_atol(argv[1]);
 	data->time_to_die = ft_atol(argv[2]) * 1e3;
@@ -21,25 +31,28 @@ static void parse_args(int argc, char **argv, t_simulation *data)
 	if (data->time_to_die < 6e4 || data->time_to_die < 6e4 \
 		|| data->time_to_sleep < 6e4)
 	{
-		ft_putendl_fd("Erro\nUse timestamps greater tran 60ms", 2);
+		ft_putendl_fd("Erro\nUse timestamps greater than 60ms", 2);
+		exit(1);
+	}
+	if (data->nbr_philos > 200)
+	{
+		ft_putendl_fd("Erro\nUse number of philos greater than 200", 2);
 		exit(1);
 	}
 	if (argc == 6)
 		data->nbr_max_meals = ft_atol(argv[5]);
-	else 
+	else
 		data->nbr_max_meals = -1;
 }
-
 
 int	main(int argc, char **argv)
 {
 	t_simulation	data;
-	
+
 	validate_args(argc, argv);
 	parse_args(argc, argv, &data);
 	init_data(&data);
-	start_dinner(&data); //to do
-	// clean_simulation();//to do
-	printf("main test\n");
+	start_dinner(&data);
+	free_simulation(&data, 0);
 	return (0);
 }

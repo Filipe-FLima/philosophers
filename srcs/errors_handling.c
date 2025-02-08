@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors_handling.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filipe <filipe@student.42.fr>              +#+  +:+       +#+        */
+/*   By: flima <flima@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 17:13:33 by flima             #+#    #+#             */
-/*   Updated: 2025/02/02 16:39:56 by filipe           ###   ########.fr       */
+/*   Updated: 2025/02/08 23:15:20 by flima            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	nbr_of_args(int argc)
 
 static	void	check_content_args(char **argv)
 {
-	int i;
+	int	i;
 	int	j;
 
 	i = 1;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filipe <filipe@student.42.fr>              +#+  +:+       +#+        */
+/*   By: flima <flima@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 16:35:09 by flima             #+#    #+#             */
-/*   Updated: 2025/02/02 17:39:00 by filipe           ###   ########.fr       */
+/*   Updated: 2025/02/08 23:32:38 by flima            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,33 +45,37 @@ long	ft_atol(const char *nptr)
 	return (nb * sign);
 }
 
+bool	is_alive(t_philos *philo)
+{
+	bool	alive;
+
+	pthread_mutex_lock(&philo->simulation->is_dead);
+	alive = !philo->simulation->end_simulation;
+	pthread_mutex_unlock(&philo->simulation->is_dead);
+	return (alive);
+}
+
 void	ft_putendl_fd(char	*s, int fd)
 {
 	size_t	len;
 
+	len = 0;
 	if (s == NULL)
 		return ;
-	len = ft_strlen(s);
+	while (s[len])
+		len++;
 	write(fd, s, len);
 	write(fd, "\n", 1);
 }
 
-size_t	ft_strlen(const char *s)
+void	safe_mutex(t_simulation *data, t_mutex *mutex, t_status	status)
 {
-	size_t	i;
-
-	i = 0;
-	while (s[i] != '\0')
-		i++;
-	return (i);
-}
-
-void	print_status(t_simulation *data, t_philos *philo, char *status)
-{
-	long int	time;
-
-	pthread_mutex_lock(&data->print_status);
-	time = get_current_time() - data->start_simulation;
-	printf("%ld %d %s\n", time, philo->philo_id, status);
-	pthread_mutex_unlock(&data->print_status);
+	if (status == INIT)
+	{
+		if (pthread_mutex_init(mutex, NULL) != 0)
+		{
+			ft_putendl_fd("Error\nCan not init the mutex.", 2);
+			free_simulation(data, 1);
+		}
+	}
 }

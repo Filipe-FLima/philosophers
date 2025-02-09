@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flima <flima@student.42.fr>                +#+  +:+       +#+        */
+/*   By: filipe <filipe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 17:54:43 by flima             #+#    #+#             */
-/*   Updated: 2025/02/08 23:32:09 by flima            ###   ########.fr       */
+/*   Updated: 2025/02/09 17:31:04 by filipe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void	parse_args(int argc, char **argv, t_simulation *data)
 	}
 	if (data->nbr_philos > 200)
 	{
-		ft_putendl_fd("Erro\nUse number of philos greater than 200", 2);
+		ft_putendl_fd("Erro\nNumber of philos cannot be greater than 200", 2);
 		exit(1);
 	}
 	if (argc == 6)

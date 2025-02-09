@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_data.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flima <flima@student.42.fr>                +#+  +:+       +#+        */
+/*   By: filipe <filipe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 18:14:32 by flima             #+#    #+#             */
-/*   Updated: 2025/02/08 23:27:19 by flima            ###   ########.fr       */
+/*   Updated: 2025/02/09 17:48:11 by filipe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ void	init_data(t_simulation *data)
 	i = -1;
 	data->end_simulation = false;
 	data->enjoy_it = false;
+	data->philos = NULL;
+	data->forks = NULL;
 	data->philos = safe_malloc(data->nbr_philos * sizeof(t_philos), data);
 	data->forks = safe_malloc(data->nbr_philos * sizeof(t_forks), data);
 	while (++i < data->nbr_philos)

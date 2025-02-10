@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   manager.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flima <flima@student.42.fr>                +#+  +:+       +#+        */
+/*   By: filipe <filipe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 21:34:24 by filipe            #+#    #+#             */
-/*   Updated: 2025/02/08 23:27:50 by flima            ###   ########.fr       */
+/*   Updated: 2025/02/10 23:28:24 by filipe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/philo.h"
+#include "philo.h"
 
 static bool	is_all_full(t_simulation *data)
 {
@@ -70,7 +70,7 @@ void	*manager(void *simulation)
 			if (is_dead(&philo[i]))
 			{
 				end_simulation(data);
-				print_status(data, &philo[i], "is dead");
+				print_status(data, &philo[i], "died", 1);
 				return (NULL);
 			}
 			i++;

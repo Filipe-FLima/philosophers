@@ -6,17 +6,17 @@
 /*   By: filipe <filipe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 17:13:33 by flima             #+#    #+#             */
-/*   Updated: 2025/02/09 17:26:40 by filipe           ###   ########.fr       */
+/*   Updated: 2025/02/10 22:54:13 by filipe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/philo.h"
+#include "philo.h"
 
 static void	nbr_of_args(int argc)
 {
 	if (argc < 5 || argc > 6)
 	{
-		ft_putendl_fd("Erro\nInvalid number of arguments.", 2);
+		ft_putendl_fd("Error\nInvalid number of arguments.", 2);
 		exit(1);
 	}
 }

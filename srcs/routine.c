@@ -6,29 +6,29 @@
 /*   By: filipe <filipe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 21:05:34 by flima             #+#    #+#             */
-/*   Updated: 2025/02/09 18:03:29 by filipe           ###   ########.fr       */
+/*   Updated: 2025/02/10 23:56:32 by filipe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/philo.h"
+#include "philo.h"
 
 static void	thinking(t_philos *philo)
 {
 	if (is_alive(philo))
-		print_status(philo->simulation, philo, "is thinking");
+		print_status(philo->simulation, philo, "is thinking", 0);
 }
 
 static void	sleeping(t_philos *philo)
 {
 	if (is_alive(philo))
-		print_status(philo->simulation, philo, "is sleeping");
+		print_status(philo->simulation, philo, "is sleeping", 0);
 	usleep(philo->simulation->time_to_sleep);
 }
 
 static void	eating(t_philos *philo)
 {
 	if (is_alive(philo))
-		print_status(philo->simulation, philo, "is eating");
+		print_status(philo->simulation, philo, "is eating", 0);
 	usleep(philo->simulation->time_to_eat);
 }
 
@@ -36,7 +36,7 @@ static int	eat(t_philos *philo)
 {
 	pthread_mutex_lock(&philo->first_fork->fork);
 	if (is_alive(philo))
-		print_status(philo->simulation, philo, "has taken a fork");
+		print_status(philo->simulation, philo, "has taken a fork", 0);
 	if (philo->simulation->nbr_philos == 1)
 	{
 		pthread_mutex_unlock(&philo->first_fork->fork);
@@ -44,7 +44,7 @@ static int	eat(t_philos *philo)
 	}
 	pthread_mutex_lock(&philo->second_fork->fork);
 	if (is_alive(philo))
-		print_status(philo->simulation, philo, "has taken a fork");
+		print_status(philo->simulation, philo, "has taken a fork", 0);
 	pthread_mutex_lock(&philo->simulation->eating);
 	philo->last_meal_time = get_current_time();
 	philo->nbr_meals++;
@@ -77,6 +77,8 @@ void	*routine(void	*ph)
 			sleeping(philo);
 		if (is_alive(philo))
 			thinking(philo);
+		// if (philo->simulation->nbr_philos % 2)
+		// 	usleep(2000);
 	}
 	return (NULL);
 }

@@ -6,19 +6,20 @@
 /*   By: filipe <filipe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 17:54:43 by flima             #+#    #+#             */
-/*   Updated: 2025/02/09 17:31:04 by filipe           ###   ########.fr       */
+/*   Updated: 2025/02/10 23:26:57 by filipe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/philo.h"
+#include "philo.h"
 
-void	print_status(t_simulation *data, t_philos *philo, char *status)
+void	print_status(t_simulation *data, t_philos *philo, char *status, int dead)
 {
 	long int	time;
-
+	
 	pthread_mutex_lock(&data->print_status);
 	time = get_current_time() - data->start_simulation;
-	printf("%ld %d %s\n", time, philo->philo_id, status);
+	if (is_alive(philo) || dead == 1)
+		printf("%ld %d %s\n", time, philo->philo_id, status);
 	pthread_mutex_unlock(&data->print_status);
 }
 
@@ -31,12 +32,12 @@ static void	parse_args(int argc, char **argv, t_simulation *data)
 	if (data->time_to_die < 6e4 || data->time_to_die < 6e4 \
 		|| data->time_to_sleep < 6e4)
 	{
-		ft_putendl_fd("Erro\nUse timestamps greater than 60ms", 2);
+		ft_putendl_fd("Error\nUse timestamps greater than 60ms", 2);
 		exit(1);
 	}
 	if (data->nbr_philos > 200)
 	{
-		ft_putendl_fd("Erro\nNumber of philos cannot be greater than 200", 2);
+		ft_putendl_fd("Error\nNumber of philos cannot be greater than 200", 2);
 		exit(1);
 	}
 	if (argc == 6)

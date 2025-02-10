@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   start_simulation.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flima <flima@student.42.fr>                +#+  +:+       +#+        */
+/*   By: filipe <filipe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 17:06:46 by flima             #+#    #+#             */
-/*   Updated: 2025/02/08 23:34:59 by flima            ###   ########.fr       */
+/*   Updated: 2025/02/10 22:32:54 by filipe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/philo.h"
+#include "philo.h"
 
 static void	safe_philo_thread(t_simulation *data, int i, t_status status)
 {

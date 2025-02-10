@@ -6,11 +6,11 @@
 /*   By: filipe <filipe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 18:14:32 by flima             #+#    #+#             */
-/*   Updated: 2025/02/09 17:48:11 by filipe           ###   ########.fr       */
+/*   Updated: 2025/02/10 22:33:20 by filipe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/philo.h"
+#include "philo.h"
 
 static void	*safe_malloc(size_t bytes, t_simulation *data)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filipe <filipe@student.42.fr>              +#+  +:+       +#+        */
+/*   By: flima <flima@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 21:05:34 by flima             #+#    #+#             */
-/*   Updated: 2025/02/10 23:56:32 by filipe           ###   ########.fr       */
+/*   Updated: 2025/02/11 19:06:49 by flima            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,9 @@ void	*routine(void	*ph)
 			sleeping(philo);
 		if (is_alive(philo))
 			thinking(philo);
-		// if (philo->simulation->nbr_philos % 2)
-		// 	usleep(2000);
+		if (philo->simulation->nbr_philos % 2 && philo->philo_id == \
+			philo->simulation->nbr_philos)
+			usleep(2000);
 	}
 	return (NULL);
 }

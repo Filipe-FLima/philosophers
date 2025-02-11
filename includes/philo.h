@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filipe <filipe@student.42.fr>              +#+  +:+       +#+        */
+/*   By: flima <flima@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 15:36:06 by flima             #+#    #+#             */
-/*   Updated: 2025/02/10 23:27:23 by filipe           ###   ########.fr       */
+/*   Updated: 2025/02/11 19:34:05 by flima            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int			ft_isdigit(int c);
 long		ft_atol(const char *nptr);
 void		ft_putendl_fd(char	*s, int fd);
 long int	get_current_time(void);
-void		print_status(t_simulation *data, t_philos *philo, char *status, int dead);
+void		print_status(t_simulation *data, t_philos *philo, char *st, int ck);
 void		safe_mutex(t_simulation *data, t_mutex *mutex, t_status	status);
 //error functions
 void		validate_args(int argc, char **argv);

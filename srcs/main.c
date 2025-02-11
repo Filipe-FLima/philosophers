@@ -3,23 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filipe <filipe@student.42.fr>              +#+  +:+       +#+        */
+/*   By: flima <flima@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 17:54:43 by flima             #+#    #+#             */
-/*   Updated: 2025/02/10 23:26:57 by filipe           ###   ########.fr       */
+/*   Updated: 2025/02/11 19:33:55 by flima            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	print_status(t_simulation *data, t_philos *philo, char *status, int dead)
+void	print_status(t_simulation *data, t_philos *philo, char *st, int ck)
 {
 	long int	time;
-	
+
 	pthread_mutex_lock(&data->print_status);
 	time = get_current_time() - data->start_simulation;
-	if (is_alive(philo) || dead == 1)
-		printf("%ld %d %s\n", time, philo->philo_id, status);
+	if (is_alive(philo) || ck == 1)
+		printf("%ld %d %s\n", time, philo->philo_id, st);
 	pthread_mutex_unlock(&data->print_status);
 }
 

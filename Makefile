@@ -6,13 +6,15 @@
 #    By: flima <flima@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/02 16:01:48 by filipe            #+#    #+#              #
-#    Updated: 2025/02/04 19:53:30 by flima            ###   ########.fr        #
+#    Updated: 2025/02/13 21:19:19 by flima            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 CC = cc
 CFLAGS = -Wall -Werror -Wextra -g
+CFLAGS += -fsanitize=thread
+# CFLAGS += -fsanitize=address
 
 INCLUDE = includes/
 OBJ_DIR = objs/

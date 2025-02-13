@@ -6,7 +6,7 @@
 /*   By: flima <flima@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 15:36:06 by flima             #+#    #+#             */
-/*   Updated: 2025/02/11 19:34:05 by flima            ###   ########.fr       */
+/*   Updated: 2025/02/13 21:37:58 by flima            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ struct	s_simulation
 	t_mutex		is_dead;
 	t_mutex		is_full;
 	t_mutex		print_status;
+	t_mutex		get_time;
 	t_forks		*forks;
 	t_philos	*philos;
 };
@@ -73,7 +74,7 @@ struct	s_philos
 int			ft_isdigit(int c);
 long		ft_atol(const char *nptr);
 void		ft_putendl_fd(char	*s, int fd);
-long int	get_current_time(void);
+long int	get_current_time(t_simulation *data);
 void		print_status(t_simulation *data, t_philos *philo, char *st, int ck);
 void		safe_mutex(t_simulation *data, t_mutex *mutex, t_status	status);
 //error functions

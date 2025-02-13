@@ -6,7 +6,7 @@
 /*   By: flima <flima@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 21:05:34 by flima             #+#    #+#             */
-/*   Updated: 2025/02/11 19:06:49 by flima            ###   ########.fr       */
+/*   Updated: 2025/02/13 21:39:05 by flima            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@ static void	thinking(t_philos *philo)
 {
 	if (is_alive(philo))
 		print_status(philo->simulation, philo, "is thinking", 0);
+	if (philo->simulation->nbr_philos % 2 && philo->philo_id == \
+			philo->simulation->nbr_philos)
+			usleep(2000);
 }
 
 static void	sleeping(t_philos *philo)
@@ -46,7 +49,7 @@ static int	eat(t_philos *philo)
 	if (is_alive(philo))
 		print_status(philo->simulation, philo, "has taken a fork", 0);
 	pthread_mutex_lock(&philo->simulation->eating);
-	philo->last_meal_time = get_current_time();
+	philo->last_meal_time = get_current_time(philo->simulation);
 	philo->nbr_meals++;
 	pthread_mutex_unlock(&philo->simulation->eating);
 	eating(philo);
@@ -60,8 +63,10 @@ void	*routine(void	*ph)
 	t_philos	*philo;
 
 	philo = (t_philos *)ph;
-	while (!philo->simulation->enjoy_it)
-		usleep(10);
+	// while(!philo->simulation->enjoy_it)
+	// 	usleep(100);
+	if (philo->philo_id % 2 != 0)
+		usleep(1000);
 	while (is_alive(philo))
 	{
 		if (eat(philo) == 1)
@@ -77,9 +82,6 @@ void	*routine(void	*ph)
 			sleeping(philo);
 		if (is_alive(philo))
 			thinking(philo);
-		if (philo->simulation->nbr_philos % 2 && philo->philo_id == \
-			philo->simulation->nbr_philos)
-			usleep(2000);
 	}
 	return (NULL);
 }

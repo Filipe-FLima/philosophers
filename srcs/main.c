@@ -6,7 +6,7 @@
 /*   By: flima <flima@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 17:54:43 by flima             #+#    #+#             */
-/*   Updated: 2025/02/11 19:33:55 by flima            ###   ########.fr       */
+/*   Updated: 2025/02/13 21:38:23 by flima            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	print_status(t_simulation *data, t_philos *philo, char *st, int ck)
 	long int	time;
 
 	pthread_mutex_lock(&data->print_status);
-	time = get_current_time() - data->start_simulation;
+	time = get_current_time(data) - data->start_simulation;
 	if (is_alive(philo) || ck == 1)
 		printf("%ld %d %s\n", time, philo->philo_id, st);
 	pthread_mutex_unlock(&data->print_status);

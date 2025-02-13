@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   start_simulation.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filipe <filipe@student.42.fr>              +#+  +:+       +#+        */
+/*   By: flima <flima@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 17:06:46 by flima             #+#    #+#             */
-/*   Updated: 2025/02/10 22:32:54 by filipe           ###   ########.fr       */
+/*   Updated: 2025/02/13 21:38:39 by flima            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ void	start_dinner(t_simulation *data)
 		ft_putendl_fd("Error\nCan not create the manager thread.", 2);
 		free_simulation(data, 1);
 	}
-	data->start_simulation = get_current_time();
-	data->enjoy_it = true;
+	data->start_simulation = get_current_time(data);
+	// data->enjoy_it = true;
 	if (pthread_join(waiter, NULL) != 0)
 	{
 		ft_putendl_fd("Error\nCan not join the manager thread.", 2);

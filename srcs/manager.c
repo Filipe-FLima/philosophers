@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   manager.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filipe <filipe@student.42.fr>              +#+  +:+       +#+        */
+/*   By: flima <flima@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 21:34:24 by filipe            #+#    #+#             */
-/*   Updated: 2025/02/10 23:28:24 by filipe           ###   ########.fr       */
+/*   Updated: 2025/02/13 21:39:24 by flima            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,10 @@ static bool	is_dead(t_philos *philo)
 	long int	time_diff;
 	long int	mls_die;
 
-	current_time = get_current_time();
+	pthread_mutex_lock(&philo->simulation->eating);
+	current_time = get_current_time(philo->simulation);
 	time_diff = current_time - philo->last_meal_time;
+	pthread_mutex_unlock(&philo->simulation->eating);
 	mls_die = philo->simulation->time_to_die / 1e3;
 	if (time_diff > mls_die)
 	{

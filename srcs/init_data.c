@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_data.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filipe <filipe@student.42.fr>              +#+  +:+       +#+        */
+/*   By: flima <flima@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 18:14:32 by flima             #+#    #+#             */
-/*   Updated: 2025/02/10 22:33:20 by filipe           ###   ########.fr       */
+/*   Updated: 2025/02/13 21:40:18 by flima            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,13 @@ static void	*safe_malloc(size_t bytes, t_simulation *data)
 	return (ptr);
 }
 
-long int	get_current_time(void)
+long int	get_current_time(t_simulation *data)
 {
 	struct timeval	time;
 
+	pthread_mutex_lock(&data->get_time);
 	gettimeofday(&time, NULL);
+	pthread_mutex_unlock(&data->get_time);
 	return ((time.tv_sec * 1000) + (time.tv_usec / 1000));
 }
 
@@ -60,7 +62,7 @@ static void	init_philo(t_simulation *data)
 		data->philos[i].philo_id = i + 1;
 		data->philos[i].full = false;
 		data->philos[i].nbr_meals = 0;
-		data->philos[i].last_meal_time = get_current_time();
+		data->philos[i].last_meal_time = get_current_time(data);
 		data->philos[i].simulation = data;
 		assign_forks(&data->philos[i], data->forks, i);
 	}
@@ -86,5 +88,6 @@ void	init_data(t_simulation *data)
 	safe_mutex(data, &data->eating, INIT);
 	safe_mutex(data, &data->is_full, INIT);
 	safe_mutex(data, &data->is_dead, INIT);
+	safe_mutex(data, &data->get_time, INIT);
 	init_philo(data);
 }

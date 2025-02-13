@@ -6,7 +6,7 @@
 /*   By: flima <flima@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/02 17:47:36 by filipe            #+#    #+#             */
-/*   Updated: 2025/02/08 23:26:49 by flima            ###   ########.fr       */
+/*   Updated: 2025/02/13 21:36:17 by flima            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,6 @@ void	free_simulation(t_simulation *data, int out)
 	pthread_mutex_destroy(&data->eating);
 	pthread_mutex_destroy(&data->is_full);
 	pthread_mutex_destroy(&data->is_dead);
+	pthread_mutex_destroy(&data->get_time);
 	free_error_exit(data, out);
 }
